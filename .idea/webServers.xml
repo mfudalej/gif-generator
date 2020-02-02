@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="fb97d0c9-7f27-449f-a030-98ec603db3f0" name="https://mf.they.net.pl/node-countdown-gif" url="http://37.187.131.190">
+        <fileTransfer host="37.187.131.190" port="21" rootFolder="/countdown_gif">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="b431269e-27b4-41a9-8f36-c7c203d5bbc3" name="http://mfnodetest.ct8.pl/" url="http://mfnodetest.ct8.pl/">
+        <fileTransfer host="s1.ct8.pl" port="21" rootFolder="/public_nodejs">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="ac207bd4-e173-4ec9-b1c4-0b7b0b804c92" name="mf.they.pl" url="http://37.187.131.190">
+        <fileTransfer host="37.187.131.190" port="21" rootFolder="/Node_countdown-gif">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
