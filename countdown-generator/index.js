@@ -114,13 +114,7 @@ module.exports = {
             typeof cb === 'function' && cb();
         });
 
-        // estimate the font size based on the provided width
-        // let fontSize = Math.floor(this.width / 12) + 'px';
-        // let fontFamily = 'Courier New'; // monospace works slightly better
-        // let fontFamily = 'Arial'; // monospace works slightly better
-
         // set the font style
-        // ctx.font = [fontSize, fontFamily].join(' ');
         ctx.font = `${this.fontWeight} ${this.fontSize} ${this.fontFamily}`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -136,18 +130,28 @@ module.exports = {
             for(let i = 0; i < this.frames; i++){
                 // extract the information we need from the duration
                 let days = Math.floor(timeResult.asDays());
+                // let days = 0; // dla samych godzin, bez dni
                 let hours = Math.floor(timeResult.asHours() - (days * 24));
                 let minutes = Math.floor(timeResult.asMinutes()) - (days * 24 * 60) - (hours * 60);
                 let seconds = Math.floor(timeResult.asSeconds()) - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
 
                 // make sure we have at least 2 characters in the string
-                days = (days.toString().length == 1) ? '0' + days : days;
+                days = (days.toString().length == 1) ? '' + days : days;
+                // days = (days.toString().length == 1) ? '0' + days : days;
                 hours = (hours.toString().length == 1) ? '0' + hours : hours;
                 minutes = (minutes.toString().length == 1) ? '0' + minutes : minutes;
                 seconds = (seconds.toString().length == 1) ? '0' + seconds : seconds;
 
                 // build the date string
-                let string = [days, 'd ', hours, 'h ', minutes, 'm ', seconds, 's'].join('');
+                // let string = [days, ' dni  ', hours, ' godz.  ', minutes, ' min.  ', seconds, ' sek.'].join('');
+                // let string = [ hours, ' godz.  ', minutes, ' min.  ', seconds, ' sek.'].join('');
+                let string
+                if (days == '00' || days == '0' ){
+                    // string = [ hours, ' godz.  ', minutes, ' min.  ', seconds, ' sek.'].join('');
+                    string = [hours, 'g  ', minutes, 'm  ', seconds, 's'].join('');
+                } else {
+                    string = [days, 'd  ', hours, 'g  ', minutes, 'm  ', seconds, 's'].join('');
+                }
 
                 // paint BG
                 ctx.fillStyle = this.bg;
