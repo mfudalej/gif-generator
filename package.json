@@ -8,7 +8,7 @@
     "start": "node app.js",
     "dev": "nodemon app"
   },
-  "author": "Matt Hobbs",
+  "author": "Mateusz Fudalej",
   "license": "ISC",
   "dependencies": {
     "canvas": "^2.6.1",

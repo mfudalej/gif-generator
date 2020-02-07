@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const GIFEncoder = require('gifencoder');
-const { registerFont, createCanvas, Canvas } = require('canvas');
+const {registerFont, createCanvas, Canvas} = require('canvas');
 const moment = require('moment-timezone');
 
 module.exports = {
@@ -19,12 +19,14 @@ module.exports = {
      * @param {number} fontWeight
      * @param {number} fontSize
      * @param {string} fontFamily
+     * @param {number} textFormat
+     * @param {number} daysFormat
      * @param {requestCallback} cb - The callback that is run once complete.
      */
-    init: function(time, width=200, height=200, color='ffffff', bg='000000', name='default', frames=30, fontWeight=700, fontSize=16, fontFamily='Arial', cb){
+    init: function (time, width = 400, height = 100, color = 'ffffff', bg = '000000', name = 'default', frames = 30, fontWeight = 700, fontSize = 16, fontFamily = 'arial', textFormat = 1, daysFormat = 1, cb) {
         // Set some sensible upper / lower bounds
-        this.width = this.clamp(width, 150, 600);
-        this.height = this.clamp(height, 150, 500);
+        this.width = this.clamp(width, 20, 600);
+        this.height = this.clamp(height, 10, 600);
         this.frames = this.clamp(frames, 1, 90);
 
         this.bg = '#' + bg;
@@ -33,6 +35,8 @@ module.exports = {
         this.fontWeight = fontWeight;
         this.fontSize = fontSize + 'px';
         this.fontFamily = fontFamily;
+        this.textFormat = textFormat;
+        this.daysFormat = daysFormat;
 
         // loop optimisations
         this.halfWidth = Number(this.width / 2);
@@ -56,7 +60,7 @@ module.exports = {
      * @param max - maximum value number can have
      * @returns {number}
      */
-    clamp: function(number, min, max){
+    clamp: function (number, min, max) {
         return Math.max(min, Math.min(number, max));
     },
     /**
@@ -76,7 +80,7 @@ module.exports = {
         let difference = target.diff(current);
 
         // either the date has passed, or we have a difference
-        if(difference <= 0){
+        if (difference <= 0) {
             return 'Czas minął';
         } else {
             // duration of the difference
@@ -88,17 +92,17 @@ module.exports = {
      * @param {string|Object} timeResult - either the date passed string, or a valid moment duration object
      * @param {requestCallback} cb - the callback to be run once complete
      */
-    encode: function(timeResult, cb){
+    encode: function (timeResult, cb) {
         let enc = this.encoder;
         let ctx = this.ctx;
         let tmpDir = process.cwd() + '/tmp/';
 
         // custom fonts register
-        registerFont('./fonts/GlyphaLTPro.ttf', { family: 'GlyphaLTPro', weight: '400' });
-        registerFont('./fonts/GlyphaLTPro-bold.ttf', { family: 'GlyphaLTPro', weight: '700' });
+        registerFont('./fonts/GlyphaLTPro.ttf', {family: 'GlyphaLTPro', weight: '400'});
+        registerFont('./fonts/GlyphaLTPro-bold.ttf', {family: 'GlyphaLTPro', weight: '700'});
 
         // create the tmp directory if it doesn't exist
-        if (!fs.existsSync(tmpDir)){
+        if (!fs.existsSync(tmpDir)) {
             fs.mkdirSync(tmpDir);
         }
 
@@ -106,8 +110,8 @@ module.exports = {
 
         // pipe the image to the filesystem to be written
         let imageStream = enc
-                .createReadStream()
-                    .pipe(fs.createWriteStream(filePath));
+            .createReadStream()
+            .pipe(fs.createWriteStream(filePath));
         // once finised, generate or serve
         imageStream.on('finish', () => {
             // only execute callback if it is a function
@@ -126,32 +130,45 @@ module.exports = {
         enc.setQuality(10);
 
         // if we have a moment duration object
-        if(typeof timeResult === 'object'){
-            for(let i = 0; i < this.frames; i++){
+        if (typeof timeResult === 'object') {
+            for (let i = 0; i < this.frames; i++) {
                 // extract the information we need from the duration
-                let days = Math.floor(timeResult.asDays());
+                // let days = Math.floor(timeResult.asDays());
+                let days;
+                this.daysFormat == 3
+                    ? days = 0
+                    : days = Math.floor(timeResult.asDays());
                 // let days = 0; // dla samych godzin, bez dni
                 let hours = Math.floor(timeResult.asHours() - (days * 24));
                 let minutes = Math.floor(timeResult.asMinutes()) - (days * 24 * 60) - (hours * 60);
                 let seconds = Math.floor(timeResult.asSeconds()) - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
 
+                const textTemplates = {
+                    1: {
+                        d: "d  ",
+                        h: "g  ",
+                        m: "m  ",
+                        s: "s  "
+                    },
+                    2: {
+                        d: " dni   ",
+                        h: " godz.   ",
+                        m: " min.   ",
+                        s: " sek.   "
+                    }
+                };
+
                 // make sure we have at least 2 characters in the string
                 days = (days.toString().length == 1) ? '' + days : days;
-                // days = (days.toString().length == 1) ? '0' + days : days;
                 hours = (hours.toString().length == 1) ? '0' + hours : hours;
                 minutes = (minutes.toString().length == 1) ? '0' + minutes : minutes;
                 seconds = (seconds.toString().length == 1) ? '0' + seconds : seconds;
 
                 // build the date string
-                // let string = [days, ' dni  ', hours, ' godz.  ', minutes, ' min.  ', seconds, ' sek.'].join('');
-                // let string = [ hours, ' godz.  ', minutes, ' min.  ', seconds, ' sek.'].join('');
-                let string
-                if (days == '00' || days == '0' ){
-                    // string = [ hours, ' godz.  ', minutes, ' min.  ', seconds, ' sek.'].join('');
-                    string = [hours, 'g  ', minutes, 'm  ', seconds, 's'].join('');
-                } else {
-                    string = [days, 'd  ', hours, 'g  ', minutes, 'm  ', seconds, 's'].join('');
-                }
+                let string;
+                (this.daysFormat == 3 || (this.daysFormat == 2 && (days == '00' || days == '0')))
+                    ? string = hours + textTemplates[this.textFormat].h + minutes + textTemplates[this.textFormat].m + seconds + textTemplates[this.textFormat].s
+                    : string = days + textTemplates[this.textFormat].d + hours + textTemplates[this.textFormat].h + minutes + textTemplates[this.textFormat].m + seconds + textTemplates[this.textFormat].s
 
                 // paint BG
                 ctx.fillStyle = this.bg;

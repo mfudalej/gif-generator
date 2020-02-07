@@ -4,87 +4,266 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gif countdown generator</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/lumen/bootstrap.min.css" rel="stylesheet" integrity="sha384-mvYjhBJXQ9VlNETV/xXShy849GsBHnKzVVudnMOcWUVM/6Nd2ksj8VNng5f8ylyX" crossorigin="anonymous">
+    <title>Generator odliczających gifów</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <body>
 <div class="container">
     <div class="page-header">
-        <h1>Gif countdown generator <small>Using node</small></h1>
+        <h1>Generator odliczających gifów</h1>
+        <p class="lead">
+            Prosta aplikacja, pozwalająca wygenerować animowany gif odliczający czas w zależności od parametrów podanych w URL.
+        </p>
     </div>
+    <section>
+        <h2>URL Parameters</h2>
+        <ul>
+            <li>
+                <strong>time<sup>*</sup></strong> - data i godzina końca odliczania [np. 2020-10-21T20:35]
+            </li>
+            <li>
+                <strong>name</strong> - nazwa generowanego pliku gif [domyślnie 'default']
+            </li>
+            <li>
+                <strong>frames</strong> - liczba klatek (oraz senkud) odliczania przed zapętleniem [domyślnie 30]
+            </li>
+            <li>
+                <strong>width</strong> - szerokość w pikselach [domyślnie 200]
+            </li>
+            <li>
+                <strong>height</strong> - wysokość w pikselach [domyślnie 200]
+            </li>
+            <li>
+                <strong>bg</strong> - kolor tła obrazka w formacie hex [domyślnie 000000]
+            </li>
+            <li>
+                <strong>fontFamily</strong> - rodzina wyświetlanego fontu [domyślnie 'arial']
+            </li>
+            <li>
+                <strong>fontSize</strong> - rozmiar wświetlanego fontu w pikselach [domyślnie 16]
+            </li>
+            <li>
+                <strong>fontWeight</strong> - waga wświetlanego fontu [domyślnie 700]
+            </li>
+            <li>
+                <strong>color</strong> - kolor tekstu w formacie hex [domyślnie to ffffff]
+            </li>
+            <!--            <li>-->
+            <!--                <strong>cd</strong> - wiadomość wyświetlana po zakończeniu odliczania [domyślnie 'odliczanie zakończone']-->
+            <!--            </li>-->
+        </ul>
+        <p><small><sup>*</sup> wymagane.</small></p>
+    </section>
     
-    <p class="lead">The very simple app I have created allows you to generate a countdown timer animated gif depending on the URL parameters you provide.
-        <a href="https://github.com/Nooshu/node-countdown-gif">View the code</a>.</p>
+    <section>
+        <h2>Przykłady generowania plików do pobrania <small>Kliknij w link aby pobrać</small></h2>
+        <ul>
+            <li>Podstawowy: <a href="/generate?time=2020-12-14T20:35&name=ex1">/generate?time=2020-12-24T20:35</a></li>
+            <li>Niestandardowe wymiary:
+                <a href="/generate?time=2020-12-14T20:35&name=ex2&width=300&height=150">/generate?time=2020-12-24T20:35&width=300&height=150</a>
+            </li>
+            <li>Niestandardowe kolory:
+                <a href="/generate?time=2020-12-14T20:35&name=ex3&bg=581845&color=FFC300">/generate?time=2020-12-24T20:35&bg=028900&color=adff00</a>
+            </li>
+            <li>Niestandardowe wszystko:
+                <a href="/generate?time=2020-12-14T20:35&name=niestandardowy-gif&frames=60&width=400&height=200&bg=581845&fontFamily=GlyphaLTPro&fontSize=20&fontWeight=400&color=FFC300">/generate?time=2020-12-14T20:35&name=niestandardowy-gif&frames=60&width=400&height=200&bg=581845&fontFamily=GlyphaLTPro&fontSize=20&fontWeight=400&color=FFC300</a>
+            </li>
+        </ul>
+    </section>
     
-    <h2>URL Parameters</h2>
-    <ul>
-        <li><strong>time<sup>*</sup></strong> - Date &amp; time when your countdown will end [e.g. 2016-06-24T20:35]
-        </li>
-        <li>
-            <strong>frames</strong> - number of frames (also number of seconds) the countdown will run before looping [defaults to 30]
-        </li>
-        <li><strong>width</strong> - width in pixels [defaults to 200]</li>
-        <li><strong>height</strong> - height in pixels [defaults to 200]</li>
-        <li><strong>bg</strong> - hex colour code for the background [defaults to 000000]</li>
-        <li><strong>color</strong> - hex colour code for the text [defaults to ffffff]</li>
-        <li><strong>name</strong> - filename used for the generated gif [defaults to 'default']</li>
-    </ul>
-    <p><small><sup>*</sup> required.</small></p>
-    
-    <h2>Generate Examples <small>Triggers a download</small></h2>
-    <ul>
-        <li>Basic: <a href="/generate?time=2020-09-24T20:35&name=ex1">/generate?time=2018-09-24T20:35</a></li>
-        <li>Custom dimensions:
-            <a href="/generate?time=2020-09-24T20:35&width=300&height=150&name=ex2">/generate?time=2018-09-24T20:35&width=300&height=150</a>
-        </li>
-        <li>Custom colours:
-            <a href="/generate?time=2020-09-24T20:35&bg=028900&color=adff00&name=ex3">/generate?time=2018-09-24T20:35&bg=028900&color=adff00</a>
-        </li>
-        <li>Custom name &amp; frames:
-            <a href="/generate?time=2020-09-24T20:35&name=awesome-gif&frames=20&name=ex4">/generate?time=2018-09-24T20:35&name=awesome-gif&frames=20</a>
-        </li>
-    </ul>
-    
-    <h2>Serve Examples <small>Display in an image tag</small></h2>
-    <div class="row">
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="/serve?time=2020-09-24T20:35&name=serve1" alt="basic example">
-                <div class="caption">
-                    <h3>Basic example</h3>
-                    <p>Simple example setting only the date + time.</p>
+    <section>
+        <h2>Przykłady generowania plików do osadzenia w kodzie: <small>do osadzenia w tagu 'img'</small></h2>
+        <div class="row">
+            <div class="col-sm-6">
+                <div>
+                    <img src="/serve?time=2020-12-14T20:35&name=serve1" alt="basic example">
+                    <div class="caption">
+                        <h4>Podstawowy przykład</h4>
+                        <p>Podana tylko data i godzina.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div>
+                    <img src="/serve?time=2020-12-14T20:35&name=serve2&width=300&height=150" alt="custom size">
+                    <div class="caption">
+                        <h4>Niestandardowe wymiary</h4>
+                        <p>Przykład podania szerokości i wysokości.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div>
+                    <img src="/serve?time=2020-12-14T20:35&name=serve3&bg=581845&color=FFC300" alt="custom colours">
+                    <div class="caption">
+                        <h4>Niestandardowe kolory</h4>
+                        <p>Przykład podania koloru tła i koloru fontu.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div>
+                    <img src="/serve?time=2020-12-14T20:35&name=serve4&frames=60&width=400&height=150&bg=581845&fontFamily=GlyphaLTPro&fontSize=20&fontWeight=400&color=FFC300" alt="custom all">
+                    <div class="caption">
+                        <h4>Niestandardowe wszystko</h4>
+                        <p>Zmienione wszystkie domyślne ustawienia.</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="/serve?time=2020-09-24T20:35&bg=028900&color=adff00&name=serve2" alt="custom colours">
-                <div class="caption">
-                    <h3>Custom colours</h3>
-                    <p>Example setting a custom set of colours.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="/serve?time=2020-09-24T20:35&bg=028900&color=adff00&width=200&height=100&name=serve3" alt="custom colours">
-                <div class="caption">
-                    <h3>Custom dimensions</h3>
-                    <p>Example setting a custom set of dimensions.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    </section>
     
-    <p>Under the hood the app uses:</p>
-    <ul>
-        <li><a href="https://nodejs.org/en/blog/release/v6.0.0/">Node.js</a></li>
-        <li><a href="http://expressjs.com/">Express</a></li>
-        <li><a href="https://github.com/Automattic/node-canvas">Node-canvas</a></li>
-        <li><a href="https://github.com/eugeneware/gifencoder">Gifencoder</a></li>
-        <li><a href="http://momentjs.com/">Moment.js</a></li>
-        <li><a href="https://www.heroku.com/">Hosted on Heroku.com</a></li>
-    </ul>
+    <section class="">
+        <h2>Wygeneruj swój licznik!</h2>
+        <div class="row">
+            <div class="col-md">
+                <form action="#" id="genereForm">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="endDate">data końca odliczania</label>
+                                <input type="date" id="endDate" class="form-control" placeholder="" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="endTime">godzina końca odliczania</label>
+                                <input type="time" id="endTime" class="form-control" placeholder="" required>
+                            </div>
+                            <div class="form-group d-none">
+                                <input type="text" id="time" name="time">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="name">nazwa obrazka</label>
+                                <input type="text" id="name" class="form-control" name="name" placeholder="default">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="frames">liczba klatek <small>(min 2 - max 90)</small></label>
+                                <input type="number" id="frames" class="form-control" name="frames" placeholder="30">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="width">szerokość obrazka [px]</label>
+                                <input type="number" id="width" class="form-control" name="width" placeholder="400">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="height">wysokość obrazka [px]</label>
+                                <input type="number" id="height" class="form-control" name="height" placeholder="100">
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="backgroundColor">kolor tła obrazka
+                                            <small>w formacie hex</small></label>
+                                        <input type="text" id="backgroundColor" class="form-control colorInput" name="bg" value="#000000" placeholder="#000000">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="backgroundColor2"><small>lub do wyboru z palety</small></label>
+                                        <input type="color" id="backgroundColor2" class="form-control colorInput" value="#000000" placeholder="#000000">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="fontColor">kolor fontu <small>w formacie hex</small></label>
+                                        <input type="text" id="fontColor" class="form-control colorInput2" name="color" value="#ffffff" placeholder="#ffffff">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="fontColor2">lub do wyboru z palety</label>
+                                        <input type="color" id="fontColor2" class="form-control colorInput2" value="#ffffff" placeholder="#ffffff">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="fontFamily">font</label>
+                                <select class="form-control" id="fontFamily" name="fontFamily">
+                                    <option value="Arial">Arial</option>
+                                    <option value="GlyphaLTPro">GlyphaLTPro</option>
+                                    <!--TODO: add more fonts family-->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="fontSize">rozmiat fontu [px]</label>
+                                <input type="number" id="fontSize" class="form-control" name="fontSize" placeholder="16">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="fontWeight">waga fontu</label>
+                                <select class="form-control" id="fontWeight" name="fontWeight">
+                                    <option value="400">normal</option>
+                                    <option value="700">bold</option>
+                                    <!--TODO: add more fonts family-->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="textFormat">format tekstu</label>
+                                <select class="form-control" id="textFormat" name="textFormat">
+                                    <option value="1">XXd XXg XXm XXs</option>
+                                    <option value="2">XX dni XX godz. XX min. XX sek.</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="days">ukryj liczbę dni</label>
+                                <select class="form-control" id="days" name="daysFormat">
+                                    <option value="1">Nie</option>
+                                    <option value="2">Tylko gdy jest równa 0</option>
+                                    <option value="3">Zawsze</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" value="Generuj!" class="btn btn-primary btn-block">
+                </form>
+            </div>
+            <div class="col-md">
+                <div class="text-center">
+                    <img src="" class="img-thumbnail" alt="gif" id="genereGif">
+                </div>
+                <div class="mt-3">
+                    <div class="form-group">
+                        <label for="gifLink">Link do gifa.</label>
+                        <input id="gifLink" value="" readonly class="form-control text-center">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="mt-5">
+        <h6>Apka wykorzystuje:</h6>
+        <ul>
+            <li><a href="https://nodejs.org/en/blog/release/v6.0.0/">Node.js</a></li>
+            <li><a href="http://expressjs.com/">Express</a></li>
+            <li><a href="https://github.com/Automattic/node-canvas">Node-canvas</a></li>
+            <li><a href="https://github.com/eugeneware/gifencoder">Gifencoder</a></li>
+            <li><a href="http://momentjs.com/">Moment.js</a></li>
+        </ul>
+    </section>
 </div>
 </body>
+<script src="js/script.js"></script>
 </html>

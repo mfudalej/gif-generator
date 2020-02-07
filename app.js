@@ -21,13 +21,14 @@ app.get('/', function (req, res) {
 
 // generate and download the gif
 app.get('/generate', function (req, res) {
-    let {time, width, height, color, bg, name, frames, fontWeight, fontSize, fontFamily} = req.query;
+    let {time, width, height, color, bg, name, frames, fontWeight, fontSize, fontFamily, textFormat, daysFormat} = req.query;
 
-    if(!time){
+    if (!time) {
         throw Error('Time parameter is required.');
     }
 
-    CountdownGenerator.init(time, width, height, color, bg, name, frames, fontWeight, fontSize, fontFamily, () => {
+    CountdownGenerator.init(time, width, height, color, bg, name, frames, fontWeight, fontSize, fontFamily, textFormat, daysFormat, () => {
+
         let filePath = tmpDir + name + '.gif';
         res.download(filePath);
     });
@@ -35,19 +36,21 @@ app.get('/generate', function (req, res) {
 
 // serve the gif to a browser
 app.get('/serve', function (req, res) {
-    let {time, width, height, color, bg, name, frames, fontWeight, fontSize, fontFamily} = req.query;
+    let {time, width, height, color, bg, name, frames, fontWeight, fontSize, fontFamily, textFormat, daysFormat} = req.query;
 
-    if(!time){
+    if (!time) {
         throw Error('Time parameter is required.');
     }
 
-    CountdownGenerator.init(time, width, height, color, bg, name, frames, fontWeight, fontSize, fontFamily, () => {
+    name === undefined ? name = 'default' : "";
+
+    CountdownGenerator.init(time, width, height, color, bg, name, frames, fontWeight, fontSize, fontFamily, textFormat, daysFormat, () => {
         let filePath = tmpDir + name + '.gif';
         res.sendFile(filePath);
     });
 });
 
-app.listen(process.env.PORT || 3000, function(){
+app.listen(process.env.PORT || 3000, function () {
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
 
