@@ -14,14 +14,14 @@
     "canvas": "^2.6.1",
     "express": "^4.17.1",
     "gifencoder": "^2.0.1",
-    "moment": "^2.24.0",
-    "moment-timezone": "^0.5.27",
-    "node-gyp": "^6.1.0"
+    "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
+    "node-gyp": "^7.0.0"
   },
   "engines": {
     "node": "6.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.4"
   }
 }

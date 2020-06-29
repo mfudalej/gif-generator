@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f71b3af7-64d8-43a0-82b3-9b15c9bee19b" name="Default Changelist" comment="">
+    <list default="true" id="f71b3af7-64d8-43a0-82b3-9b15c9bee19b" name="Default Changelist" comment="feat: textForm and dayForm Url parameters &#10;feat: new index side in Polish">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +101,7 @@
       <workItem from="1581022666773" duration="12498000" />
       <workItem from="1581081479735" duration="9720000" />
       <workItem from="1581102563869" duration="8529000" />
-      <workItem from="1593415786628" duration="807000" />
+      <workItem from="1593415786628" duration="2406000" />
     </task>
     <task id="LOCAL-00001" summary="feat[countdown-generator/index.js]: countdown display formats">
       <created>1580679692202</created>
@@ -153,21 +155,21 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="775" y="195" key="CommitChangelistDialog2/2560.369.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1593417092015" />
-    <state width="2517" height="247" key="GridCell.Tab.0.bottom" timestamp="1593417108205">
+    <state width="2517" height="247" key="GridCell.Tab.0.bottom" timestamp="1593418014475">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="247" key="GridCell.Tab.0.bottom/2560.369.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1593417108205" />
-    <state width="2517" height="247" key="GridCell.Tab.0.center" timestamp="1593417108205">
+    <state width="2517" height="247" key="GridCell.Tab.0.bottom/2560.369.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1593418014475" />
+    <state width="2517" height="247" key="GridCell.Tab.0.center" timestamp="1593418014475">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="247" key="GridCell.Tab.0.center/2560.369.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1593417108205" />
-    <state width="2517" height="247" key="GridCell.Tab.0.left" timestamp="1593417108205">
+    <state width="2517" height="247" key="GridCell.Tab.0.center/2560.369.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1593418014475" />
+    <state width="2517" height="247" key="GridCell.Tab.0.left" timestamp="1593418014474">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="247" key="GridCell.Tab.0.left/2560.369.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1593417108205" />
-    <state width="2517" height="247" key="GridCell.Tab.0.right" timestamp="1593417108205">
+    <state width="2517" height="247" key="GridCell.Tab.0.left/2560.369.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1593418014474" />
+    <state width="2517" height="247" key="GridCell.Tab.0.right" timestamp="1593418014475">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="247" key="GridCell.Tab.0.right/2560.369.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1593417108205" />
+    <state width="2517" height="247" key="GridCell.Tab.0.right/2560.369.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1593418014475" />
   </component>
 </project>
